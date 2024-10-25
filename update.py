@@ -8,7 +8,7 @@ import re
 HEADER = """# 백준, 프로그래머스 문제 풀이 목록
 마지막 업데이트: {}
 
-[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=깃허브아이디)](https://solved.ac/깃허브아이디)
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=ljh0808)](https://solved.ac/ljh0808)
 
 ## 🚀 문제 풀이 현황
 - 총 문제 수: {}개
