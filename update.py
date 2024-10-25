@@ -3,20 +3,21 @@ import os
 from urllib import parse
 from datetime import datetime
 import subprocess
+import re
 
 HEADER = """# 백준, 프로그래머스 문제 풀이 목록
 마지막 업데이트: {}
+
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=깃허브아이디)](https://solved.ac/깃허브아이디)
+
+## 🚀 문제 풀이 현황
+- 총 문제 수: {}개
+- 백준: {}개
+- 프로그래머스: {}개
 """
 
-def get_file_info(file_path):
+def get_commit_url(file_path):
     try:
-        # 파일의 최초 커밋 날짜 가져오기
-        git_log = subprocess.check_output(
-            ['git', 'log', '--follow', '--format=%ad', '--date=format:%y-%m-%d', file_path],
-            encoding='utf-8'
-        ).strip().split('\n')
-        commit_date = git_log[-1] if git_log else "N/A"
-        
         # 파일의 가장 최근 커밋 해시 가져오기
         git_hash = subprocess.check_output(
             ['git', 'log', '-n', '1', '--format=%H', file_path],
@@ -35,18 +36,22 @@ def get_file_info(file_path):
         if remote_url.startswith('git@github.com:'):
             remote_url = 'https://github.com/' + remote_url[15:]
             
-        commit_url = f"{remote_url}/blob/{git_hash}/{file_path}"
-        
-        return commit_date, commit_url
+        return f"{remote_url}/blob/{git_hash}/{file_path}"
     except subprocess.CalledProcessError:
-        return "N/A", "#"
+        return "#"
+
+def get_problem_title(platform, problem_number):
+    # 나중에 API를 통해 문제 제목을 가져올 수 있도록 준비
+    return ""
 
 def main():
-    content = ""
-    content += HEADER.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    total_problems = 0
+    baekjoon_count = 0
+    programmers_count = 0
     
+    content = ""
     directories = []
-    solveds = {}  # 문제 플랫폼별로 문제들을 저장하기 위한 딕셔너리
+    solveds = {}
     
     for root, dirs, files in os.walk("."):
         dirs.sort()
@@ -72,8 +77,8 @@ def main():
         if directory not in directories:
             if directory in ["백준", "프로그래머스"]:
                 content += f"\n## 📚 {directory}\n"
-                solveds[directory] = []  # 새로운 플랫폼의 문제 목록 초기화
-                content += "| 문제번호 | 푼 날짜 | 소스 코드 |\n"
+                solveds[directory] = []
+                content += "| 문제번호 | 링크 | 소스 코드 |\n"
                 content += "| ----- | ----- | ----- |\n"
             directories.append(directory)
             
@@ -84,17 +89,36 @@ def main():
                 file_path = os.path.join(root, file).replace('\\', '/')
                 if file_path.startswith('./'):
                     file_path = file_path[2:]
-                    
-                # 커밋 날짜와 링크 가져오기
-                commit_date, commit_url = get_file_info(file_path)
                 
-                content += f"|{problem_number}|{commit_date}|[코드]({commit_url})|\n"
+                # GitHub 소스 코드 링크 생성
+                commit_url = get_commit_url(file_path)
+                
+                # 플랫폼별 문제 링크 생성
+                if directory == "백준":
+                    problem_link = f"https://www.acmicpc.net/problem/{problem_number}"
+                    baekjoon_count += 1
+                elif directory == "프로그래머스":
+                    problem_link = f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
+                    programmers_count += 1
+                else:
+                    problem_link = "#"
+                
+                content += f"|{problem_number}|[문제]({problem_link})|[코드]({commit_url})|\n"
                 if directory in solveds:
                     solveds[directory].append(problem_number)
-        
-    # README.md 파일 쓰기 (utf-8 인코딩 명시)
+                total_problems += 1
+    
+    # 최종 README 내용 생성
+    final_content = HEADER.format(
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        total_problems,
+        baekjoon_count,
+        programmers_count
+    ) + content
+    
+    # README.md 파일 쓰기
     with open("README.md", "w", encoding='utf-8') as fd:
-        fd.write(content)
+        fd.write(final_content)
     
 if __name__ == "__main__":
     main()
