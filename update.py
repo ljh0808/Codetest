@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 import os
-from urllib import parse
 from datetime import datetime
 import subprocess
 import re
 import requests
-import json
 from time import sleep
 
 HEADER = """# 백준, 프로그래머스 문제 풀이 목록
@@ -41,35 +39,6 @@ def get_commit_url(file_path):
     except subprocess.CalledProcessError:
         return "#"
 
-def get_boj_problem_title(problem_number):
-    try:
-        url = f"https://solved.ac/api/v3/problem/show?problemId={problem_number}"
-        headers = {'Content-Type': 'application/json'}
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            data = response.json()
-            return data.get('titleKo', '')  # 한글 제목 반환
-        return ""
-    except Exception:
-        return ""
-
-def get_programmers_problem_title(problem_number):
-    # 프로그래머스 문제 폴더 또는 파일 이름에서 제목 추출
-    try:
-        # "./프로그래머스/{problem_number}*" 형태로 파일을 탐색
-        for root, dirs, files in os.walk("./프로그래머스"):
-            # 파일명이나 폴더명에서 해당 문제 번호가 포함된 경우 찾기
-            if str(problem_number) in root or any(str(problem_number) in file for file in files):
-                # 문제번호 이후의 파일명이나 폴더명을 제목으로 간주
-                for file in files:
-                    if file.startswith(str(problem_number)):
-                        # 문제번호 이후의 부분을 제목으로 간주하여 추출
-                        title = file.replace(str(problem_number), '').replace('_', ' ').replace('-', ' ').strip()
-                        return title
-        return f"Programmers 문제 {problem_number}"  # 제목을 못 찾을 경우 기본 제목 반환
-    except Exception:
-        return f"Programmers 문제 {problem_number}"  # 예외 시 기본 제목 반환
-
 def is_solution_file(filename):
     extensions = ['.py', '.java', '.cpp', '.c', '.js', '.kt']
     return any(filename.endswith(ext) for ext in extensions)
@@ -77,6 +46,10 @@ def is_solution_file(filename):
 def get_problem_number_from_path(path):
     numbers = re.findall(r'\d+', path)
     return numbers[-1] if numbers else None
+
+def get_programmers_title_from_path(path):
+    # Codetest/프로그래머스/레벨/문제 제목 형태에서 마지막 항목을 제목으로 간주
+    return os.path.basename(path)
 
 def main():
     total_problems = 0
@@ -127,7 +100,7 @@ def main():
                 baekjoon_count += 1
                 sleep(0.5)  # API 호출 제한 방지
             else:  # 프로그래머스
-                problem_title = get_programmers_problem_title(problem_number)
+                problem_title = get_programmers_title_from_path(root)  # 경로에서 문제 제목 추출
                 problem_link = f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
                 programmers_count += 1
             
