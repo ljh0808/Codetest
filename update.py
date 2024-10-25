@@ -4,6 +4,9 @@ from urllib import parse
 from datetime import datetime
 import subprocess
 import re
+import requests
+import json
+from time import sleep
 
 HEADER = """# 백준, 프로그래머스 문제 풀이 목록
 
@@ -12,7 +15,7 @@ HEADER = """# 백준, 프로그래머스 문제 풀이 목록
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=200732)](https://solved.ac/200732)
 
 ## 🚀 문제 풀이 현황
-- 총 문제 수: {}개
+- 총 맞춘 문제 수: {}개
 - 백준: {}개
 - 프로그래머스: {}개
 """
@@ -38,12 +41,38 @@ def get_commit_url(file_path):
     except subprocess.CalledProcessError:
         return "#"
 
+def get_boj_problem_title(problem_number):
+    try:
+        url = f"https://solved.ac/api/v3/problem/show?problemId={problem_number}"
+        headers = {'Content-Type': 'application/json'}
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return data.get('titleKo', '')  # 한글 제목 반환
+        return ""
+    except Exception:
+        return ""
+
+def get_programmers_problem_title(problem_number):
+    # 프로그래머스는 공식 API가 없어서 파일명이나 폴더명에서 제목을 추출하는 방식을 사용
+    try:
+        # 해당 문제 폴더에서 제목을 찾아보는 로직
+        for root, _, _ in os.walk(f"./프로그래머스/{problem_number}"):
+            folder_name = os.path.basename(root)
+            if folder_name != str(problem_number):
+                # 폴더명에서 문제번호를 제외한 부분을 제목으로 사용
+                title = folder_name.replace(str(problem_number), '').strip()
+                if title:
+                    return title
+        return ""
+    except Exception:
+        return ""
+
 def is_solution_file(filename):
     extensions = ['.py', '.java', '.cpp', '.c', '.js', '.kt']
     return any(filename.endswith(ext) for ext in extensions)
 
 def get_problem_number_from_path(path):
-    # 경로에서 숫자만 추출
     numbers = re.findall(r'\d+', path)
     return numbers[-1] if numbers else None
 
@@ -55,11 +84,10 @@ def main():
     content = ""
     platform_problems = {"백준": set(), "프로그래머스": set()}
     
-    # 플랫폼 별 섹션 미리 생성
     for platform in ["백준", "프로그래머스"]:
         content += f"\n## 📚 {platform}\n"
-        content += "| 문제번호 | 링크 | 소스 코드 |\n"
-        content += "| ----- | ----- | ----- |\n"
+        content += "| 문제번호 | 제목 | 링크 | 소스 코드 |\n"
+        content += "| ----- | ----- | ----- | ----- |\n"
     
     for root, dirs, files in os.walk("."):
         if '.git' in root or '.github' in root or 'images' in root:
@@ -79,10 +107,7 @@ def main():
                 continue
                 
             problem_number = get_problem_number_from_path(root)
-            if not problem_number:
-                continue
-                
-            if problem_number in platform_problems[platform]:
+            if not problem_number or problem_number in platform_problems[platform]:
                 continue
                 
             platform_problems[platform].add(problem_number)
@@ -93,18 +118,22 @@ def main():
             
             commit_url = get_commit_url(file_path)
             
+            # 문제 제목 가져오기
             if platform == "백준":
+                problem_title = get_boj_problem_title(problem_number)
                 problem_link = f"https://www.acmicpc.net/problem/{problem_number}"
                 baekjoon_count += 1
+                sleep(0.5)  # API 호출 제한 방지
             else:  # 프로그래머스
+                problem_title = get_programmers_problem_title(problem_number)
                 problem_link = f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
                 programmers_count += 1
             
             # 해당 플랫폼의 섹션을 찾아서 내용 추가
-            problem_line = f"|{problem_number}|[문제]({problem_link})|[코드]({commit_url})|\n"
+            problem_line = f"|{problem_number}|{problem_title}|[문제]({problem_link})|[코드]({commit_url})|\n"
             content = content.replace(
-                f"## 📚 {platform}\n| 문제번호 | 링크 | 소스 코드 |\n| ----- | ----- | ----- |\n",
-                f"## 📚 {platform}\n| 문제번호 | 링크 | 소스 코드 |\n| ----- | ----- | ----- |\n{problem_line}"
+                f"## 📚 {platform}\n| 문제번호 | 제목 | 링크 | 소스 코드 |\n| ----- | ----- | ----- | ----- |\n",
+                f"## 📚 {platform}\n| 문제번호 | 제목 | 링크 | 소스 코드 |\n| ----- | ----- | ----- | ----- |\n{problem_line}"
             )
             
             total_problems += 1
