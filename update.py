@@ -43,9 +43,29 @@ def is_solution_file(filename):
     extensions = ['.py', '.java', '.cpp', '.c', '.js', '.kt']
     return any(filename.endswith(ext) for ext in extensions)
 
-def get_problem_number_from_path(path):
-    numbers = re.findall(r'\d+', path)
-    return numbers[-1] if numbers else None
+def get_problem_number_from_path(path, platform):
+    if platform == "백준":
+        # 백준 경로에서 문제 번호 추출 (예: Codetest/백준/Bronze/1000/Main.java)
+        parts = path.split(os.sep)
+        for part in parts:
+            if part.isdigit():  # 숫자로만 이루어진 폴더명을 문제 번호로 간주
+                return part
+    else:  # 프로그래머스
+        numbers = re.findall(r'\d+', path)
+        return numbers[-1] if numbers else None
+    return None
+
+def get_boj_problem_title(problem_number):
+    try:
+        url = f"https://solved.ac/api/v3/problem/show?problemId={problem_number}"
+        headers = {'Content-Type': 'application/json'}
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return data.get('titleKo', 'Unknown Title')
+    except Exception as e:
+        print(f"Error fetching title for problem {problem_number}: {e}")
+    return "Unknown Title"
 
 def get_programmers_title_from_path(path):
     # Codetest/프로그래머스/레벨/문제 제목 형태에서 마지막 항목을 제목으로 간주
@@ -81,7 +101,7 @@ def main():
             if not is_solution_file(file):
                 continue
                 
-            problem_number = get_problem_number_from_path(root)
+            problem_number = get_problem_number_from_path(root, platform)
             if not problem_number or problem_number in platform_problems[platform]:
                 continue
                 
