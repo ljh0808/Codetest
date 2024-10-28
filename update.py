@@ -47,8 +47,19 @@ def get_problem_number_from_path(path):
     numbers = re.findall(r'\d+', path)
     return numbers[-1] if numbers else None
 
+def get_boj_problem_title(problem_number):
+    try:
+        url = f"https://solved.ac/api/v3/problem/show?problemId={problem_number}"
+        headers = {'Content-Type': 'application/json'}
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return data.get('titleKo', 'Unknown Title')
+    except Exception as e:
+        print(f"Error fetching title for problem {problem_number}: {e}")
+    return "Unknown Title"
+
 def get_programmers_title_from_path(path):
-    # Codetest/프로그래머스/레벨/문제 제목 형태에서 마지막 항목을 제목으로 간주
     return os.path.basename(path)
 
 def main():
