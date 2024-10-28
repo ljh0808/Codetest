@@ -96,7 +96,8 @@ def main():
                 sleep(0.5)  # API 호출 제한 방지
             
             else:  # 프로그래머스
-                problem_number = os.path.basename(file_path).split('.')[0]
+                # 경로에서 숫자 문제 번호 추출
+                problem_number = ''.join(filter(str.isdigit, os.path.basename(file_path)))
                 problem_title = os.path.basename(root)
                 problem_link = f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
                 programmers_count += 1
