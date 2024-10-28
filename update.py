@@ -96,10 +96,8 @@ def main():
                 sleep(0.5)  # API 호출 제한 방지
             
             else:  # 프로그래머스
-                # 파일명에서 확장자를 제외한 문제 번호 추출
-                problem_number = os.path.splitext(os.path.basename(file_path))[0]
-                problem_title = os.path.basename(os.path.dirname(file_path))
-                # 프로그래머스 문제 링크 형식으로 수정
+                problem_number = os.path.basename(file_path).split('.')[0]
+                problem_title = os.path.basename(root)
                 problem_link = f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
                 programmers_count += 1
                 platform_problems[platform].append(
@@ -113,7 +111,7 @@ def main():
         content += f"\n## 📚 {platform}\n"
         content += "| 문제번호 | 제목 | 링크 | 소스 코드 |\n"
         content += "| ----- | ----- | ----- | ----- |\n"
-        content += ''.join(sorted(problems))  # 문제 번호순으로 정렬
+        content += ''.join(problems)
 
     final_content = HEADER.format(
         datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
