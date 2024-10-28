@@ -39,40 +39,59 @@ def get_commit_url(file_path):
         return "#"
 
 def is_solution_file(filename):
-    extensions = ['.py', '.java', '.cpp', '.c', '.js', '.kt']
-    return any(filename.endswith(ext) for ext in extensions)
+    return any(filename.endswith(ext) for ext in ['.py', '.java', '.cpp', '.c', '.js', '.kt'])
 
-def get_boj_problem_title(problem_number):
+def get_boj_problem_info(file_path):
+    problem_number = os.path.basename(os.path.dirname(file_path))
     try:
         url = f"https://solved.ac/api/v3/problem/show?problemId={problem_number}"
-        headers = {'Content-Type': 'application/json'}
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers={'Content-Type': 'application/json'})
         if response.status_code == 200:
             data = response.json()
-            return data.get('titleKo', 'Unknown Title')
+            return {
+                'number': problem_number,
+                'title': data.get('titleKo', 'Unknown Title'),
+                'link': f"https://www.acmicpc.net/problem/{problem_number}"
+            }
     except Exception as e:
-        print(f"Error fetching title for problem {problem_number}: {e}")
-    return "Unknown Title"
+        print(f"Error fetching BOJ problem {problem_number}: {e}")
+    return None
 
-def main():
-    total_problems = 0
-    baekjoon_count = 0
-    programmers_count = 0
-    content = ""
+def get_programmers_problem_info(file_path):
+    problem_dir = os.path.basename(os.path.dirname(file_path))
+    problem_number = ''
+    problem_title = ''
+    
+    # Extract problem number and title from directory name
+    # Expected format: "12345_문제제목" or "문제제목_12345"
+    parts = problem_dir.split('_')
+    for part in parts:
+        if part.isdigit():
+            problem_number = part
+        else:
+            problem_title = part
+    
+    if problem_number:
+        return {
+            'number': problem_number,
+            'title': problem_title,
+            'link': f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
+        }
+    return None
 
+def process_solutions():
     platform_problems = {"백준": [], "프로그래머스": []}
+    counts = {"백준": 0, "프로그래머스": 0}
 
-    for root, dirs, files in os.walk("."):
-        if '.git' in root or '.github' in root or 'images' in root:
+    for root, _, files in os.walk("."):
+        if any(skip in root for skip in ['.git', '.github', 'images']):
             continue
         
-        platform = None
         if "백준" in root:
             platform = "백준"
         elif "프로그래머스" in root:
             platform = "프로그래머스"
-        
-        if not platform:
+        else:
             continue
 
         for file in files:
@@ -83,46 +102,41 @@ def main():
             if file_path.startswith('./'):
                 file_path = file_path[2:]
             
-            commit_url = get_commit_url(file_path)
-
+            problem_info = None
             if platform == "백준":
-                problem_number = os.path.basename(os.path.dirname(file_path))
-                problem_title = get_boj_problem_title(problem_number)
-                problem_link = f"https://www.acmicpc.net/problem/{problem_number}"
-                baekjoon_count += 1
-                platform_problems[platform].append(
-                    f"|{problem_number}|{problem_title}|[문제]({problem_link})|[코드]({commit_url})|\n"
-                )
+                problem_info = get_boj_problem_info(file_path)
                 sleep(0.5)  # API 호출 제한 방지
-            
-            else:  # 프로그래머스
-                # 경로에서 숫자 문제 번호 추출
-                problem_number = ''.join(filter(str.isdigit, os.path.basename(file_path)))
-                problem_title = os.path.basename(root)
-                problem_link = f"https://school.programmers.co.kr/learn/courses/30/lessons/{problem_number}"
-                programmers_count += 1
+            else:
+                problem_info = get_programmers_problem_info(file_path)
+
+            if problem_info:
+                commit_url = get_commit_url(file_path)
                 platform_problems[platform].append(
-                    f"|{problem_number}|{problem_title}|[문제]({problem_link})|[코드]({commit_url})|\n"
+                    f"|{problem_info['title']}|{problem_info['number']}|[문제]({problem_info['link']})|[코드]({commit_url})|\n"
                 )
+                counts[platform] += 1
 
-            total_problems += 1
+    return platform_problems, counts
 
-    # 백준과 프로그래머스 표를 content에 추가
-    for platform, problems in platform_problems.items():
-        content += f"\n## 📚 {platform}\n"
-        content += "| 문제번호 | 제목 | 링크 | 소스 코드 |\n"
-        content += "| ----- | ----- | ----- | ----- |\n"
-        content += ''.join(problems)
-
-    final_content = HEADER.format(
+def main():
+    platform_problems, counts = process_solutions()
+    total_problems = sum(counts.values())
+    
+    content = HEADER.format(
         datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         total_problems,
-        baekjoon_count,
-        programmers_count
-    ) + content
-    
+        counts["백준"],
+        counts["프로그래머스"]
+    )
+
+    for platform, problems in platform_problems.items():
+        content += f"\n## 📚 {platform}\n"
+        content += "| 제목 | 문제번호 | 링크 | 소스 코드 |\n"
+        content += "| ----- | ----- | ----- | ----- |\n"
+        content += ''.join(sorted(problems, key=lambda x: x.split('|')[2]))  # 문제번호 기준 정렬
+
     with open("README.md", "w", encoding='utf-8') as fd:
-        fd.write(final_content)
+        fd.write(content)
 
 if __name__ == "__main__":
     main()
