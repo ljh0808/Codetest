@@ -1,13 +1,13 @@
 # 백준, 프로그래머스 문제 풀이 목록
 
-마지막 업데이트: 2024-11-03 14:50:44
+마지막 업데이트: 2024-11-03 14:55:48
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=200732)](https://solved.ac/200732)
 
 ## 🚀 문제 풀이 현황
-- 총 맞춘 문제 수: 77개
+- 총 맞춘 문제 수: 78개
 - 백준: 2개
-- 프로그래머스: 75개
+- 프로그래머스: 76개
 
 ## 📚 백준
 | 문제번호 | 제목 | 링크 | 소스 코드 |
@@ -39,6 +39,7 @@
 |120813|120813. 짝수는 싫어요|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120813)|[코드](https://github.com/ljh0808/Codetest/blob/ae8773513aa6823072ed28964b4c7d1bd8764234/프로그래머스/0/120813. 짝수는 싫어요/짝수는 싫어요.java)|
 |181940|181940. 문자열 곱하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181940)|[코드](https://github.com/ljh0808/Codetest/blob/0e720c741d8355e4b934b7b0ff4ec7dbf8c28d82/프로그래머스/0/181940. 문자열 곱하기/문자열 곱하기.java)|
 |181948|181948. 특수문자 출력하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181948)|[코드](https://github.com/ljh0808/Codetest/blob/f90fafd50076b70db242bb3bb62b4f577d8c59cf/프로그래머스/0/181948. 특수문자 출력하기/특수문자 출력하기.java)|
+|120830|120830. 양꼬치|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120830)|[코드](https://github.com/ljh0808/Codetest/blob/f0ed72e40525db9812d21be8af608860742b007c/프로그래머스/0/120830. 양꼬치/양꼬치.java)|
 |120811|120811. 중앙값 구하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120811)|[코드](https://github.com/ljh0808/Codetest/blob/465c9d0a8c7fce619abf21ad9cf282f8aefc9cb7/프로그래머스/0/120811. 중앙값 구하기/중앙값 구하기.java)|
 |181947|181947. 덧셈식 출력하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181947)|[코드](https://github.com/ljh0808/Codetest/blob/43121c7468009d9e1575aa8cb6299f614eb2b20f/프로그래머스/0/181947. 덧셈식 출력하기/덧셈식 출력하기.java)|
 |120820|120820. 나이 출력|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120820)|[코드](https://github.com/ljh0808/Codetest/blob/1522cfcf9f96bca0cf1a1eeaabdfeccf596542c0/프로그래머스/0/120820. 나이 출력/나이 출력.java)|
