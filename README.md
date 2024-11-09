@@ -1,13 +1,13 @@
 # 백준, 프로그래머스 문제 풀이 목록
 
-마지막 업데이트: 2024-11-09 14:55:08
+마지막 업데이트: 2024-11-09 14:58:34
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=200732)](https://solved.ac/200732)
 
 ## 🚀 문제 풀이 현황
-- 총 맞춘 문제 수: 84개
+- 총 맞춘 문제 수: 85개
 - 백준: 2개
-- 프로그래머스: 82개
+- 프로그래머스: 83개
 
 ## 📚 백준
 | 문제번호 | 제목 | 링크 | 소스 코드 |
@@ -46,6 +46,7 @@
 |181948|181948. 특수문자 출력하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181948)|[코드](https://github.com/ljh0808/Codetest/blob/f90fafd50076b70db242bb3bb62b4f577d8c59cf/프로그래머스/0/181948. 특수문자 출력하기/특수문자 출력하기.java)|
 |120830|120830. 양꼬치|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120830)|[코드](https://github.com/ljh0808/Codetest/blob/f0ed72e40525db9812d21be8af608860742b007c/프로그래머스/0/120830. 양꼬치/양꼬치.java)|
 |120811|120811. 중앙값 구하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120811)|[코드](https://github.com/ljh0808/Codetest/blob/465c9d0a8c7fce619abf21ad9cf282f8aefc9cb7/프로그래머스/0/120811. 중앙값 구하기/중앙값 구하기.java)|
+|120819|120819. 아이스 아메리카노|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120819)|[코드](https://github.com/ljh0808/Codetest/blob/0dfbd9b75b75e09b796a66fa1675f8ce3d18ede6/프로그래머스/0/120819. 아이스 아메리카노/아이스 아메리카노.java)|
 |181947|181947. 덧셈식 출력하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181947)|[코드](https://github.com/ljh0808/Codetest/blob/43121c7468009d9e1575aa8cb6299f614eb2b20f/프로그래머스/0/181947. 덧셈식 출력하기/덧셈식 출력하기.java)|
 |120820|120820. 나이 출력|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120820)|[코드](https://github.com/ljh0808/Codetest/blob/1522cfcf9f96bca0cf1a1eeaabdfeccf596542c0/프로그래머스/0/120820. 나이 출력/나이 출력.java)|
 |120910|120910. 세균 증식|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120910)|[코드](https://github.com/ljh0808/Codetest/blob/afd5ef7372095a147a0b0fe74ce42467c4503824/프로그래머스/0/120910. 세균 증식/세균 증식.java)|
