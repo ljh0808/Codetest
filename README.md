@@ -1,6 +1,6 @@
 # 백준, 프로그래머스 문제 풀이 목록
 
-마지막 업데이트: 2024-11-03 17:21:43
+마지막 업데이트: 2024-11-09 14:51:43
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=200732)](https://solved.ac/200732)
 
