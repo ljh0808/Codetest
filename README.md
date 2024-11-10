@@ -1,13 +1,13 @@
 # 백준, 프로그래머스 문제 풀이 목록
 
-마지막 업데이트: 2024-11-10 14:42:00
+마지막 업데이트: 2024-11-10 14:46:50
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=200732)](https://solved.ac/200732)
 
 ## 🚀 문제 풀이 현황
-- 총 맞춘 문제 수: 87개
+- 총 맞춘 문제 수: 88개
 - 백준: 2개
-- 프로그래머스: 85개
+- 프로그래머스: 86개
 
 ## 📚 백준
 | 문제번호 | 제목 | 링크 | 소스 코드 |
@@ -51,6 +51,7 @@
 |120819|120819. 아이스 아메리카노|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120819)|[코드](https://github.com/ljh0808/Codetest/blob/0dfbd9b75b75e09b796a66fa1675f8ce3d18ede6/프로그래머스/0/120819. 아이스 아메리카노/아이스 아메리카노.java)|
 |181947|181947. 덧셈식 출력하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181947)|[코드](https://github.com/ljh0808/Codetest/blob/43121c7468009d9e1575aa8cb6299f614eb2b20f/프로그래머스/0/181947. 덧셈식 출력하기/덧셈식 출력하기.java)|
 |120820|120820. 나이 출력|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120820)|[코드](https://github.com/ljh0808/Codetest/blob/1522cfcf9f96bca0cf1a1eeaabdfeccf596542c0/프로그래머스/0/120820. 나이 출력/나이 출력.java)|
+|120812|120812. 최빈값 구하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120812)|[코드](https://github.com/ljh0808/Codetest/blob/ffa3822fc07a78924f33d4d459078b5a7dcbee16/프로그래머스/0/120812. 최빈값 구하기/최빈값 구하기.java)|
 |120910|120910. 세균 증식|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120910)|[코드](https://github.com/ljh0808/Codetest/blob/afd5ef7372095a147a0b0fe74ce42467c4503824/프로그래머스/0/120910. 세균 증식/세균 증식.java)|
 |120809|120809. 배열 두배 만들기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120809)|[코드](https://github.com/ljh0808/Codetest/blob/949a2ef722bc18359ffa23f3ad02ff6c47294e2d/프로그래머스/0/120809. 배열 두배 만들기/배열 두배 만들기.java)|
 |181934|181934. 조건 문자열|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181934)|[코드](https://github.com/ljh0808/Codetest/blob/96e585c37f6efb998e956e12f7f2a4046f09ba7a/프로그래머스/0/181934. 조건 문자열/조건 문자열.java)|
