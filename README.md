@@ -1,13 +1,13 @@
 # 백준, 프로그래머스 문제 풀이 목록
 
-마지막 업데이트: 2024-11-09 14:58:34
+마지막 업데이트: 2024-11-10 14:40:35
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=200732)](https://solved.ac/200732)
 
 ## 🚀 문제 풀이 현황
-- 총 맞춘 문제 수: 85개
+- 총 맞춘 문제 수: 86개
 - 백준: 2개
-- 프로그래머스: 83개
+- 프로그래머스: 84개
 
 ## 📚 백준
 | 문제번호 | 제목 | 링크 | 소스 코드 |
@@ -44,6 +44,7 @@
 |120813|120813. 짝수는 싫어요|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120813)|[코드](https://github.com/ljh0808/Codetest/blob/ae8773513aa6823072ed28964b4c7d1bd8764234/프로그래머스/0/120813. 짝수는 싫어요/짝수는 싫어요.java)|
 |181940|181940. 문자열 곱하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181940)|[코드](https://github.com/ljh0808/Codetest/blob/0e720c741d8355e4b934b7b0ff4ec7dbf8c28d82/프로그래머스/0/181940. 문자열 곱하기/문자열 곱하기.java)|
 |181948|181948. 특수문자 출력하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/181948)|[코드](https://github.com/ljh0808/Codetest/blob/f90fafd50076b70db242bb3bb62b4f577d8c59cf/프로그래머스/0/181948. 특수문자 출력하기/특수문자 출력하기.java)|
+|120837|120837. 개미 군단|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120837)|[코드](https://github.com/ljh0808/Codetest/blob/5c492c29b991c10b42fc92b60ea5231f9c7f532c/프로그래머스/0/120837. 개미 군단/개미 군단.java)|
 |120830|120830. 양꼬치|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120830)|[코드](https://github.com/ljh0808/Codetest/blob/f0ed72e40525db9812d21be8af608860742b007c/프로그래머스/0/120830. 양꼬치/양꼬치.java)|
 |120811|120811. 중앙값 구하기|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120811)|[코드](https://github.com/ljh0808/Codetest/blob/465c9d0a8c7fce619abf21ad9cf282f8aefc9cb7/프로그래머스/0/120811. 중앙값 구하기/중앙값 구하기.java)|
 |120819|120819. 아이스 아메리카노|[문제](https://school.programmers.co.kr/learn/courses/30/lessons/120819)|[코드](https://github.com/ljh0808/Codetest/blob/0dfbd9b75b75e09b796a66fa1675f8ce3d18ede6/프로그래머스/0/120819. 아이스 아메리카노/아이스 아메리카노.java)|
